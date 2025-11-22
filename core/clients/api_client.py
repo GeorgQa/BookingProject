@@ -1,3 +1,4 @@
+from http.client import responses
 
 import  requests
 import os
@@ -33,14 +34,14 @@ class APIClient:
 
     def get(self, endpoint, params= None, status_code=200):
         url = self.base_url + endpoint
-        response = requests.get(url=url, headers=self.headers, params=params)
+        response = requests.get(url=url, headers=self.session.headers, params=params)
         if status_code:
             assert response.status_code == status_code
         return response.json()
 
     def post(self,endpoint, json_data=None, status_code=200):
         url = self.base_url + endpoint
-        response = requests.get(url=url, headers=self.headers,json= json_data)
+        response = requests.get(url=url, headers=self.session.headers,json= json_data)
         if status_code:
             assert response.status_code == status_code
         return response.json()
@@ -66,3 +67,10 @@ class APIClient:
         with allure.step("Updating header with authorization"):
             self.session.headers.update({"Authorization": f"Bearer {token}"})
 
+    def get_booking_by_id(self, id):
+        with allure.step("Send request got"):
+            url  = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{id}"
+            response = self.session.get(url=url,headers= self.session.headers)
+            response.raise_for_status()
+        with allure.step("Checking status code"):
+            assert  response.status_code == 200 ,  f"Expected status 200 but got {response.status_code}"
