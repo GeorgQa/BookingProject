@@ -33,20 +33,6 @@ class APIClient:
         else:
             raise Exception(f"Unsupported environment: {environment}")
 
-    def get(self, endpoint, params= None, status_code=200):
-        url = self.base_url + endpoint
-        response = requests.get(url=url, headers=self.session.headers, params=params)
-        if status_code:
-            assert response.status_code == status_code
-        return response.json()
-
-    def post(self,endpoint, json_data=None, status_code=200):
-        url = self.base_url + endpoint
-        response = requests.get(url=url, headers=self.session.headers,json= json_data)
-        if status_code:
-            assert response.status_code == status_code
-        return response.json()
-
     def ping(self):
         with allure.step("Ping api client"):
             url = f"{self.base_url}{Endpoints.PING}"
@@ -71,7 +57,7 @@ class APIClient:
     def get_booking_by_id(self, bookind_id):
         with allure.step("Send request got"):
             url  = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{bookind_id}"
-            response = self.session.get(url=url,headers= self.session.headers)
+            response = self.session.get(url=url, timeout=Timeout.TIMEOUT)
             response.raise_for_status()
         with allure.step("Checking status code"):
             assert  response.status_code == 200 ,  f"Expected status 200 but got {response.status_code}"
