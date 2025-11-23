@@ -38,7 +38,7 @@ class APIClient:
             url = f"{self.base_url}{Endpoints.PING}"
             response = self.session.get(url= url)
             response.raise_for_status()
-        with allure.step("Assert ststus code"):
+        with allure.step("Assert status code"):
             assert  response.status_code == 201 , f"Expected status 201 but got {response.status_code}"
         return  response.status_code
 
@@ -53,14 +53,16 @@ class APIClient:
         token = response.json().get("token")
         with allure.step("Updating header with authorization"):
             self.session.headers.update({"Authorization": f"Bearer {token}"})
+        if not token:
+            raise ValueError("No token received")
 
-    def get_booking_by_id(self, bookind_id):
+    def get_booking_by_id(self, booking_id: int):
         with allure.step("Send request got"):
-            url  = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{bookind_id}"
+            url  = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{booking_id}"
             response = self.session.get(url=url, timeout=Timeout.TIMEOUT)
             response.raise_for_status()
         with allure.step("Checking status code"):
             assert  response.status_code == 200 ,  f"Expected status 200 but got {response.status_code}"
         with allure.step("Validate body response"):
             jsonschema.validate(instance=response.json(), schema= BOOKING_SCHEMA_GET_ID)
-
+        return response.json()
