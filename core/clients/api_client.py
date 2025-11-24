@@ -77,7 +77,7 @@ class APIClient:
             response.raise_for_status()
         with allure.step("Checking status code"):
             assert  response.status_code == 201 , f"Expected status code 201 but got {response.status_code}"
-        return  response.status_code == 201
+        return  response.status_code
 
     def update_booking(self, booking_id, booking_data ):
         with allure.step("Update booking"):
