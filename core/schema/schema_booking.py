@@ -31,7 +31,7 @@ BOOKING_BODY_SCHEMA  = {
     "type": "object",
     "properties": {
         "bookingid": {"type": "integer"},
-        "booking": BOOKING_SCHEMA_NOT_FULL,
+        "booking": BOOKING_BODY_SCHEMA,
     },
     "required": ["bookingid", "booking"],
     "additionalProperties": False,
