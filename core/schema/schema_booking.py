@@ -1,4 +1,4 @@
-BOOKING_SCHEMA_NOT_FULL = {
+BOOKING_BODY_SCHEMA  = {
     "type": "object",
     "properties": {
         "firstname": {"type": "string"},
@@ -27,7 +27,7 @@ BOOKING_SCHEMA_NOT_FULL = {
     "additionalProperties": False,
 }
 
-BOOKING_SCHEMA_FULL = {
+BOOKING_BODY_SCHEMA  = {
     "type": "object",
     "properties": {
         "bookingid": {"type": "integer"},
