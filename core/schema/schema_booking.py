@@ -27,7 +27,7 @@ BOOKING_BODY_SCHEMA  = {
     "additionalProperties": False,
 }
 
-BOOKING_BODY_SCHEMA  = {
+BOOKING_CREATE_RESPONSE_SCHEMA  = {
     "type": "object",
     "properties": {
         "bookingid": {"type": "integer"},
