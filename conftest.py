@@ -25,12 +25,12 @@ def booking_dates():
 
 @pytest.fixture(scope="session")
 def generate_random_booking_data(booking_dates):
-    faker = Faker()
+    faker = Faker("ru_RU")
     firstname = faker.first_name()
     lastname = faker.last_name()
     totalprice = faker.random_number(digits=3)
     depositpaid = faker.boolean()
-    additionalneeds = faker.sentence()
+    additionalneeds = faker.sentence(ext_word_list=["Breakfast", "Early check-in", "Extra bed", "Late checkout", "Wi-Fi", "Parking"])
 
     date = {
         "firstname": firstname,
