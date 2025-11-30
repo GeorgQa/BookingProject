@@ -1,4 +1,4 @@
-BOOKING_BODY_SCHEMA  = {
+BOOKING_BODY_SCHEMA = {
     "type": "object",
     "properties": {
         "firstname": {"type": "string"},
@@ -27,7 +27,7 @@ BOOKING_BODY_SCHEMA  = {
     "additionalProperties": False,
 }
 
-BOOKING_CREATE_RESPONSE_SCHEMA  = {
+BOOKING_CREATE_RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
         "bookingid": {"type": "integer"},
